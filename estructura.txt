@@ -1,0 +1,21 @@
+/proyecto
+    /app
+        __init__.py
+        database.py
+        models.py
+        routes.py
+        utils.py           # Nuevo: para funciones de utilidad
+        /templates
+            base.html      # Nuevo: template base
+            login.html
+            register.html
+            dashboard.html
+        /static
+            /css
+                style.css
+            /js
+                main.js    # Para validaciones del formulario
+    config.py
+    run.py
+    .env
+    requirements.txt

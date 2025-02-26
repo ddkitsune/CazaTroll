@@ -1,0 +1,175 @@
+<!-- Documento HTML para la página de inicio de sesión de la aplicación CazaTroll. -->
+<!-- Utiliza Tailwind CSS para el diseño y la gestión de estilos. -->
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <!-- Define la codificación de caracteres a UTF-8 para asegurar la correcta visualización de caracteres especiales. -->
+    <meta charset="UTF-8">
+    <!-- Configura la ventana gráfica para dispositivos móviles, ajustando el ancho a la anchura del dispositivo y la escala inicial a 1. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Establece el título de la página que se muestra en la pestaña del navegador como "Login - CazaTroll". -->
+    <title>Login - CazaTroll</title>
+    <!-- Incluye la biblioteca de Tailwind CSS desde un CDN para utilizar sus clases de utilidad y estilos predefinidos. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración personalizada de Tailwind CSS (opcional) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazatroll-blue': '#1e40af',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<!-- Define el cuerpo del documento HTML. -->
+<!-- 'bg-gray-100' aplica un color de fondo gris claro utilizando Tailwind CSS. -->
+<body class="bg-gray-900">
+    <!-- Contenedor principal que centra vertical y horizontalmente el contenido en la pantalla. -->
+    <!-- 'min-h-screen' asegura que el contenedor ocupe al menos toda la altura de la pantalla. -->
+    <!-- 'flex items-center justify-center' utiliza flexbox para centrar los elementos hijos. -->
+    <div class="min-h-screen flex items-center justify-center">
+        <!-- Contenedor para el formulario de inicio de sesión, con un ancho máximo definido y centrado. -->
+        <!-- 'max-w-md' establece un ancho máximo para pantallas medianas. -->
+        <!-- 'w-full' hace que el contenedor ocupe todo el ancho disponible dentro de su contenedor padre. -->
+        <!-- 'bg-white' define el fondo como blanco. -->
+        <!-- 'rounded-lg' añade bordes redondeados. -->
+        <!-- 'shadow-md' aplica una sombra mediana. -->
+        <!-- 'p-8' añade un relleno de 8 unidades en todos los lados. -->
+        <div class="max-w-md w-full bg-gray-800 rounded-lg shadow-md p-8">
+            <!-- Contenedor para el título y la descripción del formulario, centrados horizontalmente. -->
+            <!-- 'text-center' centra el texto horizontalmente. -->
+            <!-- 'mb-8' añade un margen inferior de 8 unidades. -->
+            <div class="text-center mb-8">
+                <!-- Título principal "CazaTroll" con estilos de texto grande y en negrita. -->
+                <!-- 'text-3xl' define el tamaño del texto como extra grande (3xl en Tailwind CSS). -->
+                <!-- 'font-bold' aplica negrita al texto. -->
+                <!-- 'text-gray-800' define el color del texto como gris oscuro. -->
+                <h1 class="text-3xl font-bold text-gray-100">CazaTroll</h1>
+                <!-- Párrafo descriptivo "Inicia sesión en tu cuenta" con color de texto gris medio. -->
+                <!-- 'text-gray-600' define el color del texto como gris medio. -->
+                <p class="text-gray-300">Inicia sesión en tu cuenta</p>
+            </div>
+
+            <!-- Formulario de inicio de sesión con identificador 'loginForm'. -->
+            <!-- 'space-y-6' añade espacio vertical entre los elementos hijos del formulario. -->
+            <form id="loginForm" class="space-y-6" action="{{ url_for('login') }}" method="POST">
+                <!-- Contenedor para el campo de usuario. -->
+                <div>
+                    <!-- Etiqueta "Usuario" para el campo de entrada de usuario. -->
+                    <!-- 'block' hace que la etiqueta se comporte como un elemento de bloque. -->
+                    <!-- 'text-sm' define el tamaño del texto como pequeño. -->
+                    <!-- 'font-medium' aplica un peso de fuente medio. -->
+                    <!-- 'text-gray-700' define el color del texto como gris oscuro. -->
+                    <label for="username" class="block text-sm font-medium text-gray-300">
+                        Usuario
+                    </label>
+                    <!-- Campo de entrada de texto para el nombre de usuario. -->
+                    <!-- 'type="text"' especifica que es un campo de texto. -->
+                    <!-- 'id="username"' y 'name="username"' identificadores para JavaScript y el formulario. -->
+                    <!-- 'required' indica que este campo es obligatorio. -->
+                    <!-- Clases de Tailwind CSS para estilos: margen superior, bloque, ancho completo, relleno, borde, redondeado, sombra, foco en el contorno y borde azul. -->
+                    <input type="text" id="username" name="username" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-100" placeholder="Usuario">
+                </div>
+
+                <!-- Contenedor para el campo de contraseña. -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-300">
+                        Contraseña
+                    </label>
+                    <input type="password" id="password" name="password" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-100" placeholder="Contraseña">
+                </div>
+
+                <!-- Contenedor para el mensaje de error, inicialmente oculto. -->
+                <!-- 'hidden' oculta el elemento por defecto. -->
+                <div id="error" class="text-red-500 text-sm hidden"></div>
+
+                <!-- Botón de envío del formulario para iniciar sesión. -->
+                <!-- 'type="submit"' especifica que es un botón de envío de formulario. -->
+                <!-- Clases de Tailwind CSS para estilos: ancho completo, flexbox para centrar el texto, relleno, borde transparente, redondeado, sombra, texto pequeño y mediano, color de texto blanco, fondo azul, hover más oscuro, foco en el contorno y anillo azul. -->
+                <div>
+                    <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </form>
+
+            <!-- Contenedor para el enlace de registro, situado debajo del formulario. -->
+            <!-- 'mt-6' añade un margen superior de 6 unidades. -->
+            <!-- 'text-center' centra el texto horizontalmente. -->
+            <div class="mt-6 text-center">
+                <!-- Enlace "Regístrate" que redirige a la página de registro '/register'. -->
+                <!-- 'href="/register"' define la URL de destino del enlace. -->
+                <!-- Clases de Tailwind CSS para estilos: color de texto azul, hover más oscuro. -->
+                <p class="text-sm text-gray-400">
+                    ¿No tienes una cuenta? 
+                    <a href="{{ url_for('register') }}" class="font-medium text-blue-500 hover:text-blue-400">
+                        Regístrate aquí
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Javascript para manejar el envío del formulario de inicio de sesión de forma asíncrona. -->
+    <script>
+        // Añade un event listener al formulario con id 'loginForm' para el evento 'submit'.
+        // La función asíncrona se ejecuta cuando se envía el formulario.
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            // Previene el comportamiento por defecto del formulario de enviar la página y recargarla.
+            e.preventDefault();
+
+            // Obtiene los valores de los campos de usuario y contraseña del formulario.
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            // Obtiene el elemento div para mostrar mensajes de error.
+            const errorDiv = document.getElementById('error');
+
+            // Bloque try-catch para manejar errores durante la petición al servidor.
+            try {
+                // Realiza una petición POST a la API en la ruta '/api/login'.
+                const response = await fetch('/api/login', {
+                    // Especifica el método HTTP como POST para enviar datos al servidor.
+                    method: 'POST',
+                    // Define las cabeceras de la petición.
+                    headers: {
+                        // Indica que el tipo de contenido que se envía es JSON.
+                        'Content-Type': 'application/json',
+                    },
+                    // Convierte los datos de usuario y contraseña a formato JSON y los incluye en el cuerpo de la petición.
+                    body: JSON.stringify({ username, password })
+                });
+
+                // Convierte la respuesta del servidor a formato JSON.
+                const data = await response.json();
+
+                // Verifica si la petición fue exitosa según la respuesta del servidor.
+                if (data.success) {
+                    // Si el inicio de sesión es exitoso, guarda un indicador en localStorage.
+                    localStorage.setItem('isLoggedIn', 'true');
+                    // Redirige al usuario a la página principal '/'.
+                    window.location.href = '/';
+                } else {
+                    // Si el inicio de sesión falla, muestra el mensaje de error recibido del servidor.
+                    errorDiv.textContent = data.message;
+                    // Remueve la clase 'hidden' del div de error para hacerlo visible.
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                // Si ocurre un error durante la conexión con el servidor, muestra un mensaje de error genérico.
+                errorDiv.textContent = 'Error al conectar con el servidor';
+                // Remueve la clase 'hidden' del div de error para hacerlo visible.
+                errorDiv.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+<!-- Fin del documento HTML para la página de inicio de sesión. -->
+<!-- Este documento define la estructura, el estilo y la funcionalidad para permitir a los usuarios iniciar sesión en la aplicación CazaTroll. -->
+</html>
