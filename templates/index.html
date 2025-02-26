@@ -1,0 +1,112 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html>
+<!-- Elemento raíz del documento HTML, define el idioma como español y activa el modo oscuro por defecto -->
+<html lang="es" class="dark">
+<head>
+  <!-- Define la codificación de caracteres a UTF-8 para soportar caracteres especiales -->
+  <meta charset="UTF-8">
+  <!-- Configuración de la ventana gráfica para dispositivos móviles, ajusta el ancho a la anchura del dispositivo y establece el zoom inicial a 1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Título de la página que se muestra en la pestaña del navegador -->
+  <title>Inicio - CazaTroll</title>
+  <!-- Incluye la biblioteca de Tailwind CSS desde un CDN para aplicar estilos de manera rápida y utilitaria -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Configuración de Tailwind CSS en línea -->
+  <script>
+    tailwind.config = {
+      <!-- Activa el modo oscuro de Tailwind CSS basado en la clase 'dark' en el elemento html -->
+      darkMode: 'class',
+    }
+  </script>
+  <!-- Enlace a la hoja de estilos CSS de Leaflet, una biblioteca para mapas interactivos -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<!-- Cuerpo del documento HTML, define clases de Tailwind CSS para el fondo y el color del texto en modo claro y oscuro -->
+<body class="bg-gray-900 text-gray-100">
+  {% include 'partials/_navbar.html' %}
+  
+  <!-- Contenedor principal para el contenido de la página, centrado horizontalmente y con relleno -->
+  <main class="container mx-auto p-4">
+    <!-- Título principal de la página, grande, en negrita y centrado -->
+    <h1 class="text-3xl font-bold text-center mb-6">Bienvenido a CazaTroll</h1>
+
+    <!-- Contenedor para el botón de administración, inicialmente oculto -->
+    <div id="admin-button" class="mb-6 hidden">
+        <!-- Enlace que actúa como botón para ir al panel de administración, con estilos de Tailwind CSS para color, texto y forma -->
+        <a href="/admin" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
+            Panel de Administración
+        </a>
+    </div>
+
+    <!-- Formulario para introducir la IP del usuario, con estilos de Tailwind CSS para fondo, relleno, bordes y sombra -->
+    <form id="form" class="bg-gray-800 p-6 rounded-lg shadow-md" action="{{ url_for('index') }}" method="POST">
+      <!-- Etiqueta para el campo de entrada de la IP -->
+      <label class="block mb-4">
+        <!-- Texto de la etiqueta -->
+        <span class="text-gray-300">IP del Usuario</span>
+        <!-- Campo de entrada de texto para la IP, requerido, con identificador 'input', placeholder y estilos de Tailwind CSS -->
+        <input
+          required
+          id="input"
+          type="text"
+          placeholder="Introduce aquí la IP"
+          class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-gray-100"
+        >
+        <!-- Pequeño texto de ejemplo debajo del campo de entrada -->
+        <small class="text-gray-400">Por ejemplo 54.85.132.205</small>
+      </label>
+      <!-- Botón de envío del formulario, con identificador 'submit' y estilos de Tailwind CSS -->
+      <button
+        type="submit"
+        id="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Buscar información de esta IP
+      </button>
+    </form>
+
+    <!-- Contenedor para mostrar los resultados de la búsqueda de IP, inicialmente vacío -->
+    <div id="results" class="mt-6 bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
+      <!-- Comentario indicando dónde se mostrarán los detalles de la IP -->
+      <!-- Los detalles de la IP se mostrarán aquí -->
+    </div>
+
+    <!-- Contenedor para el mapa, con altura fija y estilos de Tailwind CSS para bordes redondeados y sombra -->
+    <div id="map" class="mt-6 h-96 rounded-lg shadow-md"></div>
+  </main>
+
+  <!-- Botón fijo en la esquina inferior derecha para alternar el modo oscuro, con estilos de Tailwind CSS -->
+  <button
+    id="toggle-dark-mode"
+    class="fixed bottom-4 right-4 p-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full shadow-lg"
+  >
+    🌓
+  </button>
+
+  <!-- Incluye la biblioteca JavaScript de Leaflet desde un CDN para la funcionalidad del mapa -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    <!-- Integridad y política de origen cruzado para seguridad y verificación del recurso -->
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <!-- Incluye un archivo JavaScript externo llamado 'main.js' desde la carpeta '../static/' -->
+  <script src="../static/main.js"></script>
+  <!-- Script JavaScript en línea para verificar si el usuario es administrador y mostrar el botón de administración -->
+  <script>
+    // Verifica si el 'role_id' en la sesión es igual a 1 (que representa el rol de administrador)
+    const isAdmin = {{ session.get('role_id', 2) | tojson }} === 1;  // Usa 2 como valor por defecto si no existe
+
+    // Si 'isAdmin' es verdadero, remueve la clase 'hidden' del elemento con ID 'admin-button' para mostrarlo
+    if (isAdmin) {
+        document.getElementById('admin-button').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

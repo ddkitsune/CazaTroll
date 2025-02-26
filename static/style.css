@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos para el contenedor del mapa - z-index:1 asegura que el mapa se muestre por encima de otros elementos */
+#map {
+    z-index: 1;
+}
+
+/* Estilos para mensajes de error - Utiliza clases de Tailwind para crear alertas visuales:
+   bg-red-100: fondo rojo claro
+   border-red-400: borde rojo
+   text-red-700: texto rojo oscuro
+   px-4 py-3: padding horizontal y vertical
+   rounded: bordes redondeados
+   relative: posición relativa */
+.error {
+    @apply bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative;
+}
+
+/* Estilos para elementos del historial - Crea tarjetas interactivas:
+   p-3: padding
+   bg-gray-50: fondo gris claro
+   rounded-md: bordes redondeados medianos
+   cursor-pointer: cursor de puntero
+   hover:bg-gray-100: efecto hover con cambio de fondo
+   transition duration-200: transición suave de 200ms */
+.history-item {
+    @apply p-3 bg-gray-50 rounded-md cursor-pointer hover:bg-gray-100 transition duration-200;
+}
+
+/* Estilos para elementos de información de IP - Diseño flexible con separación:
+   flex: contenedor flexible
+   items-center: centrado vertical
+   space-x-2: espacio horizontal entre elementos
+   p-2: padding
+   border-b border-gray-100: borde inferior gris
+   last:border-0: elimina borde del último elemento */
+.ip-info-item {
+    @apply flex items-center space-x-2 p-2 border-b border-gray-100 last:border-0;
+}
+
+/* Clase para indicar estado de carga:
+   opacity-50: reduce opacidad
+   cursor-not-allowed: cursor de no permitido */
+.loading {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+/* Estilos para botones deshabilitados - Similar a .loading pero aplicado a botones:
+   opacity-50: reduce opacidad
+   cursor-not-allowed: cursor de no permitido */
+button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+/* Personalización del contenedor de Leaflet (biblioteca de mapas):
+   rounded-lg: bordes redondeados grandes
+   shadow-lg: sombra grande */
+.leaflet-container {
+    @apply rounded-lg shadow-lg;
+}
+
+body {
+    background-image: url("/static/images/background.jpg");
+    @apply bg-cover bg-center bg-fixed bg-no-repeat;
+}
+
+/* Asegura que el contenido principal tenga un fondo ligeramente transparente */
+main, .container {
+    border-radius: 0.5rem; /* Bordes redondeados */
+    padding: 1.5rem; /* Espaciado interno */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Efecto neón para botones */
+.neon-button {
+    @apply bg-black text-white border-2 border-white;
+    box-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px white;
+    transition: box-shadow 0.3s ease;
+}
+
+.neon-button:hover {
+    box-shadow: 0 0 20px white, 0 0 40px white, 0 0 80px white;
+}
+
+/* Efecto neón para la cabecera */
+.neon-header {
+    @apply bg-black text-white border-b-2 border-white;
+    box-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px white;
+}
+
+/* Asegúrate de que Tailwind procese estos estilos */
+@layer components {
+    .error {
+        @apply bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded relative;
+    }
+    
+    .history-item {
+        @apply p-3 bg-gray-50 rounded-md cursor-pointer hover:bg-gray-100 transition duration-200;
+    }
+    
+    .ip-info-item {
+        @apply flex items-center space-x-2 p-2 border-b border-gray-100 last:border-0;
+    }
+    
+    .loading {
+        @apply opacity-50 cursor-not-allowed;
+    }
+    
+    button:disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+    
+    .leaflet-container {
+        @apply rounded-lg shadow-lg;
+    }
+}
